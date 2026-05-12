@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+:root {
+  --navy: #1e3a6e;
+  --navy-dark: #162d56;
+  --navy-deeper: #0f2040;
+  --navy-light: #2a4d8f;
+  --white: #ffffff;
+  --off-white: #f0f3f9;
+  --border: #d0d9ec;
+  --text: #1a2a45;
+  --text-soft: #5a6f8f;
+  --text-faint: #9aaabf;
+  --danger: #c0392b;
+  --success: #2d7a4f;
+  --gold: #f5c842;
+  --bg: #eef1f8;
+  --warn: #b8860b;
+}

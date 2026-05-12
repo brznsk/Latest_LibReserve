@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Admin | LibReserve</title>
+<link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/variables.css"/>
+<link rel="stylesheet" href="css/dashboard-common.css"/>
+<link rel="stylesheet" href="css/admin-dashboard.css"/>
+</head>
+<body>
+<nav class="topbar">
+  <div class="topbar-brand">
+    <div class="logo-mark">
+      <img src="images/xu-logo.png" width="40" height="40" alt="" decoding="async"/>
+    </div>
+    <span>LibReserve</span>
+    <span class="admin-badge">ADMIN</span>
+  </div>
+  <div class="topbar-right">
+    <a class="topbar-link" href="StaffDashBoard.html">Reservation desk</a>
+    <div class="user-pill">
+      <div class="avatar" id="user-avatar">?</div>
+      <span id="user-name">Admin</span>
+    </div>
+    <button class="logout-btn" type="button" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<div class="main-content">
+  <header class="page-header">
+    <div class="header-text">
+      <h1>User Management</h1>
+      <p>Manage staff permissions and student account statuses.</p>
+    </div>
+    <button class="btn-add-staff" onclick="openAddStaffModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="margin-right:6px">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="17" y1="11" x2="23" y2="11"/>
+      </svg>
+      Add staff account
+    </button>
+  </header>
+
+  <div class="table-card">
+    <div class="table-toolbar">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-users" placeholder="Search by name, email, or ID..."/>
+      </div>
+    </div>
+    
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Type</th>
+            <th>Desk Access</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="users-tbody">
+          <tr><td colspan="6" style="text-align:center; padding: 3rem; color: var(--text-soft);">Fetching live data from MongoDB...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="reset-staff-pw-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Reset Password</h3>
+      <button class="modal-close" type="button" onclick="closeStaffPwModal()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert error" id="pw-reset-err" style="display:none;margin-bottom:12px"></div>
+      <p class="hint" id="pw-reset-for-email" style="margin:0 0 12px;font-size:14px"></p>
+      <input type="hidden" id="pw-reset-email"/>
+      <div class="modal-field">
+        <label>New password</label>
+        <input type="password" id="rpw" placeholder="12+ chars, upper, lower, symbol" minlength="12" autocomplete="new-password"/>
+      </div>
+      <div class="modal-field">
+        <label>Confirm</label>
+        <input type="password" id="rcpw" autocomplete="new-password"/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-cancel" onclick="closeStaffPwModal()">Cancel</button>
+      <button type="button" class="btn-reserve" id="reset-confirm-btn" onclick="submitStaffPwReset()">Update Password</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/auth-store.js"></script>
+<script src="js/register-validation.js"></script>
+<script src="js/admin-dashboard.js"></script>
+</body>
+</html>
