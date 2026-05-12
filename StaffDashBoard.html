@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Staff Portal | LibReserve</title>
+<link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/variables.css"/>
+<link rel="stylesheet" href="css/dashboard-common.css"/>
+<link rel="stylesheet" href="css/staff-dashboard.css"/>
+</head>
+<body>
+<div id="page-alert" class="alert-top" style="display:none" role="status"></div>
+
+<nav class="topbar">
+  <div class="topbar-brand">
+    <img src="images/xu-logo.png" width="40" height="40" alt=""/>
+    <span>LibReserve</span>
+    <span class="staff-badge" id="role-badge">STAFF</span>
+  </div>
+  <div class="topbar-right">
+    <div class="user-pill">
+      <div class="avatar" id="user-avatar">?</div>
+      <span id="user-name">Staff</span>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<div class="main-content">
+  <div class="desk-toolbar">
+    <input type="text" id="search-input" placeholder="Search live requests..." oninput="renderTable()"/>
+    <button type="button" class="btn-refresh-desk" onclick="refreshData()">Sync with MongoDB</button>
+  </div>
+
+  <div class="res-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th><th>Room</th><th>Student</th><th>Date/Time</th><th>Purpose</th><th>Status</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="res-tbody">
+        <tr><td colspan="7" style="text-align:center;padding:3rem">Loading data from Railway...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal-overlay" id="detail-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Reservation detail</h3>
+      <button type="button" class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="detail-grid" class="detail-grid"></div>
+    </div>
+    <div class="modal-footer" id="detail-footer"></div>
+  </div>
+</div>
+
+<script src="js/xu-api-base.js"></script>
+<script src="js/auth-store.js"></script>
+<script src="js/reservation-rules.js"></script>
+<script src="js/staff-dashboard.js"></script>
+</body>
+</html>

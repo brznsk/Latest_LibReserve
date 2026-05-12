@@ -1,0 +1,388 @@
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--text);
+}
+
+.topbar {
+  background: linear-gradient(135deg, var(--navy-light), var(--navy-deeper));
+  padding: 0 max(2.5rem, env(safe-area-inset-right)) 0 max(2.5rem, env(safe-area-inset-left));
+  padding-top: max(0px, env(safe-area-inset-top));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  box-shadow: 0 2px 20px rgba(14, 32, 64, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-brand .logo-mark {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  padding: 5px;
+  background: #f4f6fa;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.topbar-brand .logo-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.topbar-brand span {
+  font-family: "DM Serif Display", serif;
+  font-size: 18px;
+  color: #fff;
+}
+
+.staff-badge {
+  background: rgba(245, 200, 66, 0.25);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 7px 14px;
+  border-radius: 30px;
+}
+
+.user-pill .avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy-deeper);
+}
+
+.user-pill span {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.logout-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.topbar-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.topbar-link:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 40, 0.5);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 20px;
+  width: min(560px, 100%);
+  box-shadow: 0 20px 60px rgba(14, 32, 64, 0.2);
+  animation: slideUp 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  padding: 24px 28px 18px;
+  border-bottom: 1px solid var(--off-white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  font-family: "DM Serif Display", serif;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-faint);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: var(--off-white);
+}
+
+.modal-close svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.modal-body {
+  padding: 24px 28px;
+}
+
+.modal-footer {
+  padding: 0 28px 24px;
+  display: flex;
+  gap: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-faint);
+}
+
+.empty-state svg {
+  width: 40px;
+  height: 40px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.4;
+  margin-bottom: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.status-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-pending {
+  background: rgba(245, 200, 66, 0.15);
+  color: var(--warn);
+}
+
+.status-approved {
+  background: rgba(45, 122, 79, 0.1);
+  color: var(--success);
+}
+
+.status-rejected {
+  background: rgba(192, 57, 43, 0.1);
+  color: var(--danger);
+}
+
+.status-cancelled {
+  background: rgba(107, 114, 128, 0.12);
+  color: #4b5563;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    min-height: 56px;
+    padding: max(10px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 10px
+      max(12px, env(safe-area-inset-left));
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    row-gap: 10px;
+  }
+
+  .topbar-brand {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 8px;
+  }
+
+  .topbar-brand span:not(.staff-badge) {
+    font-size: clamp(15px, 4vw, 18px);
+  }
+
+  .topbar-right {
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .user-pill {
+    max-width: min(220px, 52vw);
+    padding: 6px 10px;
+  }
+
+  .user-pill span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  .logout-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    min-height: 44px;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+    align-items: flex-end;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .modal {
+    width: 100%;
+    max-height: min(92vh, 100dvh - 24px);
+    border-radius: 16px 16px 12px 12px;
+    margin-top: auto;
+  }
+
+  .modal-header {
+    padding: 18px 18px 14px;
+  }
+
+  .modal-header h3 {
+    font-size: 18px;
+    padding-right: 8px;
+  }
+
+  .modal-body {
+    padding: 18px;
+  }
+
+  .modal-footer {
+    padding: 0 18px 18px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 10px
+      max(10px, env(safe-area-inset-left));
+  }
+
+  .staff-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+}
+
+@media (min-width: 769px) {
+  .modal-overlay {
+    align-items: center;
+  }
+}
+
+.main-content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem max(1rem, env(safe-area-inset-right)) 2rem max(1rem, env(safe-area-inset-left));
+  padding-bottom: max(1.75rem, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    padding: 1rem max(0.75rem, env(safe-area-inset-right)) 1.5rem max(0.75rem, env(safe-area-inset-left));
+  }
+}

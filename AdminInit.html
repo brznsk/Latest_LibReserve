@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Create administrator | LibReserve</title>
+<link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/variables.css"/>
+<link rel="stylesheet" href="css/register.css"/>
+</head>
+<body>
+<div class="card">
+  <div class="left">
+    <div class="xu-logo-panel">
+      <img class="xu-logo" src="images/xu-logo.png" width="280" height="180" alt="Xavier University – Ateneo de Cagayan"/>
+    </div>
+    <div class="tagline">
+      <h1>One-time<br/><em>Setup.</em></h1>
+      <p>Create the first system administrator.<br/>Staff accounts are added from the admin panel.</p>
+    </div>
+    <div class="dots"><span class="on"></span><span></span><span></span></div>
+  </div>
+  <div class="right">
+    <div class="fhead">
+      <h2>Administrator account</h2>
+      <p>Use your official @xu.edu.ph email. This page only works until an admin is created in MongoDB.</p>
+    </div>
+
+    <div class="alert error" id="init-err" style="display:none; margin-bottom: 1rem;"></div>
+    <div class="alert success" id="init-ok" style="display:none; margin-bottom: 1rem;"></div>
+
+    <div class="fbody">
+      <div class="field"><label>First Name</label><input type="text" id="fname" placeholder="First Name"/></div>
+      <div class="field"><label>Last Name</label><input type="text" id="lname" placeholder="Last Name"/></div>
+      <div class="field"><label>Email</label><input type="email" id="email" placeholder="admin@xu.edu.ph"/></div>
+      
+      <div class="field">
+        <label>Password</label>
+        <div class="wrap">
+          <input type="password" id="pw" class="pw" placeholder="12+ chars, upper, lower, symbol" autocomplete="new-password"/>
+          <button class="eye" type="button" onclick="toggleEye('pw','ico1')">
+            <svg id="ico1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="17" height="17"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Confirm</label>
+        <div class="wrap">
+          <input type="password" id="cpw" class="pw" placeholder="Repeat password" autocomplete="new-password"/>
+          <button class="eye" type="button" onclick="toggleEye('cpw','ico2')">
+            <svg id="ico2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="17" height="17"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <button class="btn" type="button" id="init-btn" onclick="createFirstAdmin()">Initialize System</button>
+    
+    <div class="links">
+      <a href="LogIn.html">Back to sign in</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/xu-api-base.js"></script>
+<script src="js/auth-store.js"></script>
+<script src="js/register-validation.js"></script>
+<script src="js/auth-password-toggle.js"></script>
+<script src="js/admin-init.js"></script>
+</body>
+</html>

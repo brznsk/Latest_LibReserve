@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Student Portal | LibReserve</title>
+<link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/variables.css"/>
+<link rel="stylesheet" href="css/dashboard-common.css"/>
+<link rel="stylesheet" href="css/student-dashboard.css"/>
+</head>
+<body>
+<nav class="topbar">
+  <div class="topbar-brand">
+    <img src="images/xu-logo.png" width="40" height="40" alt=""/>
+    <span>LibReserve</span>
+  </div>
+  <div class="topbar-right">
+    <div class="user-pill">
+      <div class="avatar" id="user-avatar">?</div>
+      <span id="user-name">Student</span>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<p id="staff-student-hint" class="portal-hint" hidden>
+  You are signed in for booking with your @my.xu.edu.ph staff account. Use <strong>Library Staff</strong> sign-in for desk tools.
+</p>
+
+<div class="main-content">
+  <div class="rooms-grid" id="rooms-grid"></div>
+
+  <div class="history-section">
+    <h3>My Reservations</h3>
+    <div id="my-res-list">
+      <p style="color:var(--text-soft)">Loading your history from MongoDB...</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="booking-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-room-name">Reserve Room</h3>
+      <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="alert error" id="book-err" style="display:none"></div>
+      <input type="date" id="book-date"/>
+      <div class="time-row">
+        <input type="time" id="book-start"/>
+        <input type="time" id="book-end"/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-reserve" id="submit-btn" onclick="submitReservation()">Confirm Booking</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/xu-api-base.js"></script>
+<script src="js/auth-store.js"></script>
+<script src="js/reservation-rules.js"></script>
+<script src="js/student-dashboard.js"></script>
+</body>
+</html>
