@@ -1,6 +1,9 @@
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? "http://localhost:3000/api"
-    : "https://your-railway-app-name.up.railway.app/api";
+const API_BASE = (() => {
+    const h = window.location.hostname;
+    if (h === 'localhost' || h === '127.0.0.1') return "http://localhost:3000/api";
+    if (h.endsWith('.netlify.app')) return '/.netlify/functions';
+    return "https://your-railway-app-name.up.railway.app/api";
+})();
 
 /**
  * @returns {Promise<Array>}

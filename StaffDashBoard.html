@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="css/staff-dashboard.css"/>
 </head>
 <body>
+<div id="page-alert" class="alert-top" style="display:none" role="status"></div>
+
 <nav class="topbar">
   <div class="topbar-brand">
     <img src="images/xu-logo.png" width="40" height="40" alt=""/>
@@ -28,7 +30,7 @@
 
 <div class="main-content">
   <div class="desk-toolbar">
-    <input type="text" id="desk-search" placeholder="Search live requests..." oninput="renderTable()"/>
+    <input type="text" id="search-input" placeholder="Search live requests..." oninput="renderTable()"/>
     <button type="button" class="btn-refresh-desk" onclick="refreshData()">Sync with MongoDB</button>
   </div>
 
@@ -36,17 +38,31 @@
     <table>
       <thead>
         <tr>
-          <th>Code</th><th>Room</th><th>Student</th><th>Date/Time</th><th>Status</th><th>Actions</th>
+          <th>Code</th><th>Room</th><th>Student</th><th>Date/Time</th><th>Purpose</th><th>Status</th><th>Actions</th>
         </tr>
       </thead>
       <tbody id="res-tbody">
-        <tr><td colspan="6" style="text-align:center;padding:3rem">Loading data from Railway...</td></tr>
+        <tr><td colspan="7" style="text-align:center;padding:3rem">Loading data from Railway...</td></tr>
       </tbody>
     </table>
   </div>
 </div>
 
+<div class="modal-overlay" id="detail-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Reservation detail</h3>
+      <button type="button" class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="detail-grid" class="detail-grid"></div>
+    </div>
+    <div class="modal-footer" id="detail-footer"></div>
+  </div>
+</div>
+
 <script src="js/auth-store.js"></script>
+<script src="js/reservation-rules.js"></script>
 <script src="js/staff-dashboard.js"></script>
 </body>
 </html>

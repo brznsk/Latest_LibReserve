@@ -2,7 +2,7 @@ let session = null;
 let currentFilter = "all";
 let currentDetail = null;
 
-(function init() {
+(async function staffDeskInit() {
   try {
     session = JSON.parse(sessionStorage.getItem("xu_session") || "null");
   } catch (e) {
@@ -12,34 +12,51 @@ let currentDetail = null;
     window.location.href = "LogIn.html";
     return;
   }
-  const users = getUsers();
+  const users = await getUsers();
   const live = users.find((u) => u.email.toLowerCase() === session.email.toLowerCase());
   if (!live || live.accountStatus !== "active") {
     sessionStorage.removeItem("xu_session");
     window.location.href = "LogIn.html";
     return;
   }
+  const staffBookingOnly = live.type === "staff" && session.type === "student";
+  if (staffBookingOnly) {
+    window.location.href = "StudentDashBoard.html";
+    return;
+  }
+
   const canDesk =
     live.type === "staff" ||
     live.type === "admin" ||
-    (live.type === "student" && live.staffPortalAccess);
+    (live.type === "student" && live.staffPortalAccess && session.type === "staff");
   if (!canDesk) {
     window.location.href = "StudentDashBoard.html";
     return;
   }
   session.fname = live.fname;
   session.lname = live.lname;
-  session.type = live.type;
+  session.type =
+    live.type === "student" && live.staffPortalAccess && session.type === "staff"
+      ? "staff"
+      : live.type;
+  session.loginRole =
+    session.loginRole ||
+    (live.type === "admin" ? "admin" : live.type === "staff" ? "staff" : "student");
   session.staffPortalAccess = !!live.staffPortalAccess;
   sessionStorage.setItem("xu_session", JSON.stringify(session));
 
   const badge = document.getElementById("role-badge");
-  if (live.type === "admin") badge.textContent = "ADMIN";
-  else if (live.type === "student") badge.textContent = "ASSISTANT";
-  else badge.textContent = "STAFF";
+  if (badge) {
+    if (live.type === "admin") badge.textContent = "ADMIN";
+    else if (live.type === "student" && live.staffPortalAccess) badge.textContent = "ASSISTANT";
+    else badge.textContent = "STAFF";
+  }
 
-  if (live.type === "student" && live.staffPortalAccess) {
-    document.getElementById("link-student-portal").style.display = "inline-flex";
+  const portalLink = document.getElementById("link-student-portal");
+  if (portalLink && live.type === "student" && live.staffPortalAccess) {
+    portalLink.style.display = "inline-flex";
+  } else if (portalLink) {
+    portalLink.style.display = "none";
   }
 
   const initials = ((session.fname || "S")[0] + (session.lname || "T")[0]).toUpperCase();
@@ -71,6 +88,8 @@ function escapeHtmlStaff(s) {
 }
 
 function updateStats() {
+  const totalEl = document.getElementById("stat-total");
+  if (!totalEl) return;
   const all = getReservations();
   document.getElementById("stat-total").textContent = all.length;
   document.getElementById("stat-pending").textContent = all.filter((r) => r.status === "pending").length;
@@ -88,7 +107,8 @@ function switchTab(filter, el) {
 
 function renderTable() {
   const all = getReservations();
-  const q = document.getElementById("search-input").value.toLowerCase();
+  const searchEl = document.getElementById("search-input");
+  const q = (searchEl && searchEl.value ? searchEl.value : "").toLowerCase();
   let filtered = all.filter((r) => {
     if (currentFilter !== "all" && r.status !== currentFilter) return false;
     if (q) {
@@ -229,11 +249,16 @@ function updateStatus(id, newStatus) {
 }
 
 function viewDetail(id) {
+  const modal = document.getElementById("detail-modal");
+  const grid = document.getElementById("detail-grid");
+  const footer = document.getElementById("detail-footer");
+  if (!modal || !grid || !footer) return;
+
   const list = getReservations();
   currentDetail = list.find((r) => r.id === id);
   if (!currentDetail) return;
   const r = currentDetail;
-  document.getElementById("detail-grid").innerHTML = `
+  grid.innerHTML = `
     <div class="detail-item"><div class="detail-label">Tracking Code</div><div class="detail-val">${r.id}</div></div>
     <div class="detail-item"><div class="detail-label">Status</div><div class="detail-val"><span class="status-badge status-${r.status}">${r.status}</span></div></div>
     <div class="detail-item"><div class="detail-label">Room</div><div class="detail-val">${r.roomName}</div></div>
@@ -263,7 +288,6 @@ function viewDetail(id) {
         : ""
     }
   `;
-  const footer = document.getElementById("detail-footer");
   if (r.status === "pending") {
     footer.innerHTML = `
       <button class="btn-mfull neutral" onclick="closeModal()">Close</button>
@@ -273,21 +297,28 @@ function viewDetail(id) {
   } else {
     footer.innerHTML = `<button class="btn-mfull neutral" onclick="closeModal()">Close</button>`;
   }
-  document.getElementById("detail-modal").classList.add("open");
+  modal.classList.add("open");
 }
 
 function closeModal() {
-  document.getElementById("detail-modal").classList.remove("open");
+  const modal = document.getElementById("detail-modal");
+  if (modal) modal.classList.remove("open");
 }
 
 function showPageAlert(type, text) {
   const el = document.getElementById("page-alert");
+  if (!el) return;
   el.className = "alert-top " + type;
   el.textContent = text;
   el.style.display = "block";
   setTimeout(() => {
     el.style.display = "none";
   }, 4000);
+}
+
+function refreshData() {
+  updateStats();
+  renderTable();
 }
 
 function logout() {

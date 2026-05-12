@@ -1003,3 +1003,22 @@
     color: var(--text-soft);
   }
 }
+
+.portal-hint {
+  margin: 0;
+  padding: 12px max(1.25rem, env(safe-area-inset-right)) 12px max(1.25rem, env(safe-area-inset-left));
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--navy-deeper);
+  background: linear-gradient(
+    90deg,
+    rgba(30, 58, 110, 0.12) 0%,
+    rgba(30, 58, 110, 0.04) 100%
+  );
+  border-bottom: 1px solid var(--border);
+}
+
+.portal-hint strong {
+  font-weight: 600;
+  color: var(--navy);
+}

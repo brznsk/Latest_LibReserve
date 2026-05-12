@@ -250,7 +250,7 @@ function bindBookingModalLibraryHours() {
   dateEl.addEventListener("input", syncBookingModalTimeBounds);
 }
 
-(function init() {
+(async function studentInit() {
   try {
     session = JSON.parse(sessionStorage.getItem("xu_session") || "null");
   } catch (e) {
@@ -260,25 +260,53 @@ function bindBookingModalLibraryHours() {
     window.location.href = "LogIn.html";
     return;
   }
-  const users = getUsers();
+  const users = await getUsers();
   const live = users.find((u) => u.email.toLowerCase() === session.email.toLowerCase());
   if (!live || live.accountStatus !== "active") {
     sessionStorage.removeItem("xu_session");
     window.location.href = "LogIn.html";
     return;
   }
-  if (live.type !== "student") {
-    if (live.type === "admin") window.location.href = "AdminDashBoard.html";
-    else window.location.href = "StaffDashBoard.html";
+
+  const mayUseDesk =
+    live.type === "admin" ||
+    live.type === "staff" ||
+    (live.type === "student" && live.staffPortalAccess);
+  if (session.type === "staff") {
+    if (mayUseDesk) {
+      window.location.href = "StaffDashBoard.html";
+      return;
+    }
+    sessionStorage.removeItem("xu_session");
+    window.location.href = "LogIn.html";
     return;
   }
+
+  const staffBookingOnly = live.type === "staff" && session.type === "student";
+
+  if (live.type === "admin") {
+    window.location.href = "AdminDashBoard.html";
+    return;
+  }
+  if (live.type === "staff" && !staffBookingOnly) {
+    window.location.href = "StaffDashBoard.html";
+    return;
+  }
+  if (live.type !== "student" && !staffBookingOnly) {
+    sessionStorage.removeItem("xu_session");
+    window.location.href = "LogIn.html";
+    return;
+  }
+
   session.fname = live.fname;
   session.lname = live.lname;
   session.staffPortalAccess = !!live.staffPortalAccess;
+  if (!session.loginRole) session.loginRole = staffBookingOnly ? "staff" : "student";
   sessionStorage.setItem("xu_session", JSON.stringify(session));
 
-  if (live.staffPortalAccess) {
-    document.getElementById("link-staff-desk").style.display = "inline-flex";
+  const hint = document.getElementById("staff-student-hint");
+  if (hint) {
+    hint.hidden = !staffBookingOnly;
   }
 
   const initials = ((session.fname || "S")[0] + (session.lname || "T")[0]).toUpperCase();

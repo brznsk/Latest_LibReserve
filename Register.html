@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Student Registration | Library Confab</title>
 <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="css/variables.css"/>
 <link rel="stylesheet" href="css/register.css"/>
 </head>
@@ -16,8 +16,8 @@
       <img class="xu-logo" src="images/xu-logo.png" width="280" height="180" alt="Xavier University – Ateneo de Cagayan"/>
     </div>
     <div class="tagline">
-      <h1>Join the<br/>Library<br/><em>Community.</em></h1>
-      <p>Create your student account to<br/>start booking confab rooms.</p>
+      <h1>Join the Library<br/><span class="tag-accent">Community.</span></h1>
+      <p>Create your student account to start booking confab rooms.</p>
     </div>
     <div class="dots"><span class="on"></span><span></span><span></span></div>
   </div>
@@ -27,35 +27,50 @@
       <p>Create your account to reserve confab rooms</p>
     </div>
 
+    <div class="student-account-banner">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+      </svg>
+      <span>Student Account</span>
+    </div>
+
     <div class="alert error" id="err" style="display:none; margin-bottom:1rem"></div>
     <div class="alert success" id="suc" style="display:none; margin-bottom:1rem"></div>
 
     <div class="fbody">
-      <div class="field"><label>First Name</label><input type="text" id="fname" placeholder="First Name"/></div>
-      <div class="field"><label>Last Name</label><input type="text" id="lname" placeholder="Last Name"/></div>
-      <div class="field"><label>School ID</label><input type="text" id="sid" placeholder="11 digits"/></div>
-      <div class="field"><label>Email</label><input type="email" id="email" placeholder="name@my.xu.edu.ph"/></div>
-      <div class="field">
-        <label>Password</label>
-        <div class="wrap">
-          <input type="password" id="pw" class="pw" placeholder="12+ chars, upper, lower, symbol" autocomplete="new-password"/>
-          <button class="eye" type="button" onclick="toggleEye('pw','ico1')">
-            <svg id="ico1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="17" height="17"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
+      <div class="row2">
+        <div class="field"><label for="fname">First Name</label><input type="text" id="fname" placeholder="Juan" autocomplete="given-name"/></div>
+        <div class="field"><label for="lname">Last Name</label><input type="text" id="lname" placeholder="dela Cruz" autocomplete="family-name"/></div>
       </div>
-      <div class="field">
-        <label>Confirm Password</label>
-        <div class="wrap">
-          <input type="password" id="cpw" class="pw" placeholder="Repeat password"/>
-          <button class="eye" type="button" onclick="toggleEye('cpw','ico2')">
-            <svg id="ico2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="17" height="17"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z\"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
+      <div class="field"><label for="sid">School ID Number</label><input type="text" id="sid" placeholder="11 digits, e.g. 20210001234" inputmode="numeric" autocomplete="off"/></div>
+      <div class="field"><label for="email">Email Address</label><input type="email" id="email" placeholder="name@my.xu.edu.ph" autocomplete="email"/></div>
+      <div class="row2">
+        <div class="field">
+          <label for="pw">Password</label>
+          <div class="wrap">
+            <input type="password" id="pw" class="pw" placeholder="12+ chars, upper, lo" autocomplete="new-password"/>
+            <button class="eye" type="button" onclick="toggleEye('pw','ico1')">
+              <svg id="ico1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="17" height="17"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cpw">Confirm Password</label>
+          <div class="wrap">
+            <input type="password" id="cpw" class="pw" placeholder="Repeat" autocomplete="new-password"/>
+            <button class="eye" type="button" onclick="toggleEye('cpw','ico2')">
+              <svg id="ico2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="17" height="17"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
     <button class="btn" type="button" id="reg-btn" onclick="doRegister()">Create Account</button>
-    <div class="links"><a href="LogIn.html">Already have an account? Sign in</a></div>
+    <div class="links">
+      Already have an account? <a href="LogIn.html">Sign in</a>
+      <span class="sep">|</span>
+      Staff? <a href="RegisterStaff.html">Staff access info</a>
+    </div>
   </div>
 </div>
 

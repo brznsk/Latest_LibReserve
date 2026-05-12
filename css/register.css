@@ -4,14 +4,15 @@ body {
 }
 
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   background: #dde4f0;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 24px 12px;
+  padding: max(24px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+    max(24px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
   box-sizing: border-box;
 }
 
@@ -140,9 +141,9 @@ body::after {
   margin-bottom: 0.9rem;
 }
 
-.tagline h1 em {
+.tagline h1 .tag-accent {
   font-style: italic;
-  color: #7eb3ff;
+  color: #63b3ed;
 }
 
 .tagline p {
@@ -195,6 +196,26 @@ body::after {
 .fhead p {
   font-size: 13px;
   color: var(--text-soft);
+}
+
+.student-account-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--off-white);
+  border: 1px solid rgba(208, 217, 236, 0.7);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 1.15rem;
+}
+
+.student-account-banner svg {
+  flex-shrink: 0;
+  color: var(--navy);
 }
 
 .banner {
@@ -273,7 +294,7 @@ body::after {
 .field input {
   width: 100%;
   padding: 10px 14px;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 13.5px;
   color: var(--text);
   background: var(--off-white);
@@ -319,7 +340,7 @@ body::after {
 .btn {
   width: 100%;
   padding: 12px;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 15px;
   font-weight: 500;
   color: #fff;

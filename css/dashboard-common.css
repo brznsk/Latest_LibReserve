@@ -371,3 +371,18 @@ body {
     align-items: center;
   }
 }
+
+.main-content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem max(1rem, env(safe-area-inset-right)) 2rem max(1rem, env(safe-area-inset-left));
+  padding-bottom: max(1.75rem, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    padding: 1rem max(0.75rem, env(safe-area-inset-right)) 1.5rem max(0.75rem, env(safe-area-inset-left));
+  }
+}

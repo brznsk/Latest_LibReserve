@@ -33,7 +33,7 @@
   <header class="page-header">
     <div class="header-text">
       <h1>User Management</h1>
-      <p>Manage staff permissions and student account statuses.</p>
+      <p>Manage staff permissions and student account statuses. Toggle changes below are saved in this browser only and do not write to the database.</p>
     </div>
     <button class="btn-add-staff" onclick="openAddStaffModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="margin-right:6px">
@@ -55,11 +55,11 @@
       <table>
         <thead>
           <tr>
-            <th>User</th>
             <th>Email</th>
+            <th>Name</th>
             <th>Type</th>
-            <th>Desk Access</th>
-            <th>Status</th>
+            <th>School / employee ID</th>
+            <th>Privileges</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -67,6 +67,49 @@
           <tr><td colspan="6" style="text-align:center; padding: 3rem; color: var(--text-soft);">Fetching live data from MongoDB...</td></tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="staff-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Add staff account</h3>
+      <button type="button" class="modal-close" onclick="closeStaffModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="alert error" id="staff-form-err" style="display:none;margin-bottom:12px"></div>
+      <p class="hint" style="margin:0 0 14px;font-size:13px;color:var(--text-soft)">New staff cannot sign in as Library Staff until you grant <strong>Desk login</strong> on the user table.</p>
+      <div class="modal-field">
+        <label>First name</label>
+        <input type="text" id="nfname" autocomplete="given-name"/>
+      </div>
+      <div class="modal-field">
+        <label>Last name</label>
+        <input type="text" id="nlname" autocomplete="family-name"/>
+      </div>
+      <div class="modal-field">
+        <label>Email</label>
+        <input type="email" id="nemail" placeholder="you@xu.edu.ph or you@my.xu.edu.ph" autocomplete="email"/>
+      </div>
+      <div class="modal-field">
+        <label>Staff / employee ID</label>
+        <input type="text" id="nsid" placeholder="e.g. LIB-001" autocomplete="off"/>
+      </div>
+      <div class="modal-field">
+        <label>Initial password</label>
+        <input type="password" id="npw" placeholder="12+ chars, upper, lower, symbol" autocomplete="new-password"/>
+      </div>
+      <div class="modal-field">
+        <label>Confirm password</label>
+        <input type="password" id="ncpw" autocomplete="new-password"/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-cancel" onclick="closeStaffModal()">Cancel</button>
+      <button type="button" class="btn-reserve" onclick="submitNewStaff()">Create staff</button>
     </div>
   </div>
 </div>

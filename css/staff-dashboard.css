@@ -7,6 +7,32 @@
   padding-left: max(2rem, env(safe-area-inset-left));
 }
 
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.75rem max(1.25rem, env(safe-area-inset-right)) 2.5rem max(1.25rem, env(safe-area-inset-left));
+}
+
+.desk-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.desk-toolbar input#search-input {
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: #fff;
+}
+
 .page-header {
   margin-bottom: 2rem;
   display: flex;
